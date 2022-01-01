@@ -12,6 +12,7 @@ makeCacheMatrix <- function(x = matrix()) {
   get <- function(){
     x
   }
+  
   setinverse <- function(inverse){
     m <<- inverse
   }
@@ -32,17 +33,5 @@ cacheSolve <- function(x, ...) {
     message("getting cached data")
     return(m)
   }
-  data <- x$get()
-  det <- det(x)
-  for(i in 1:nrow(x)){
-    for(j in 1:ncol(x)){
-      if((i%%2 == 0 && j%%2 == 1)||(i%%2 == 1 && j%%2 == 0)){
-        x[i,j] <- -x[i,j]
-      }
-      temp1 <- x[i,j];
-      x[i,j] <- x[j,i]
-      x[j,i] <- temp1
-    }
-  }
-  x <- x/det
+  res <- solve(x)
 }
